@@ -10,29 +10,49 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Dashboard</title>
+  <title>Admin panel</title>
   <%@include file="../bootstrap-css.jsp" %>
 </head>
 <body>
 
 <div class="container">
-  <h1>Dashboard</h1>
+  <h1>Admin panel</h1>
 
+    <a class="btn btn-primary" href="/" role="button">Go to home page</a>
 
-  <% for (ProductModel item : (List<ProductModel>) request.getAttribute(Constants.ITEMS)) { %>
-  <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title"><%= item.getName() %>
-      </h5>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Price: <%= item.getPrice() %></li>
-        <li class="list-group-item">Quantity: <%= item.getQuantity() %></li>
-      </ul>
-      <a href="<%= request.getContextPath() %>/admin/edit?id=<%= item.getId()%>" class="btn btn-primary">Edit</a>
+  <div class="row">
+    <% for (ProductModel item : (List<ProductModel>) request.getAttribute(Constants.ITEMS)) { %>
+    <div class="col-3" align="center">
+      <div class="card mt-3">
+        <img src="<%= item.getImageUrl() %>" class="card-img-top" alt="<%= item.getName() %>">
+        <div class="card-body">
+          <h5 class="card-title"><a href = "<%= request.getContextPath() %>/product/item?id=<%=item.getId()%>"><%= item.getName() %></a>
+          </h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Price: <%= item.getPrice() %> rub.</li>
+            <li class="list-group-item">Quantity: <%= item.getQuantity() %></li>
+          </ul>
+          <a href="<%= request.getContextPath() %>/admin/edit?id=<%= item.getId()%>" class="btn btn-primary">Edit</a>
+        </div>
+      </div>
     </div>
+    <% } %>
   </div>
-  <% } %>
+
+<%--  <% for (ProductModel item : (List<ProductModel>) request.getAttribute(Constants.ITEMS)) { %>--%>
+<%--  <div class="card" style="width: 18rem;">--%>
+<%--    <img src="..." class="card-img-top" alt="...">--%>
+<%--    <div class="card-body">--%>
+<%--      <h5 class="card-title"><%= item.getName() %>--%>
+<%--      </h5>--%>
+<%--      <ul class="list-group list-group-flush">--%>
+<%--        <li class="list-group-item">Price: <%= item.getPrice() %></li>--%>
+<%--        <li class="list-group-item">Quantity: <%= item.getQuantity() %></li>--%>
+<%--      </ul>--%>
+<%--      <a href="<%= request.getContextPath() %>/admin/edit?id=<%= item.getId()%>" class="btn btn-primary">Edit</a>--%>
+<%--    </div>--%>
+<%--  </div>--%>
+<%--  <% } %>--%>
 
 
   <% if (request.getAttribute(Constants.ITEM) == null) { %>
@@ -52,6 +72,14 @@
       <label for="quantity">Product Quantity</label>
       <input type="number" min="0" id="quantity" name="quantity">
     </div>
+      <div class="form group">
+          <label for="price">Product ImageUrl</label>
+          <input type="text" min="0" id="imageUrl" name="image-url">
+      </div>
+      <div class="form group">
+          <label for="price">Product About</label>
+          <input type="text" min="0" id="about" name="about">
+      </div>
     <button class="btn btn-primary">Add</button>
   </form>
   <% } %>
@@ -74,6 +102,14 @@
       <label for="quantity">Product Quantity</label>
       <input type="number" min="0" id="quantity" name="quantity" value="<%= item.getQuantity() %>">
     </div>
+      <div class="form group">
+          <label for="price">Product ImageUrl</label>
+          <input type="text" min="0" id="imageUrl" name="image-url" value="<%=item.getImageUrl()%>">
+      </div>
+      <div class="form group">
+          <label for="price">Product About</label>
+          <input type="text" min="0" id="about" name="about" value="<%=item.getAbout()%>">
+      </div>
     <button class="btn btn-primary">Save</button>
   </form>
   <% } %>

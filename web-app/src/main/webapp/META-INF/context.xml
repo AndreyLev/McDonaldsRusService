@@ -5,7 +5,7 @@
             auth="Container"
             type="javax.sql.DataSource"
             driverClassName="org.sqlite.JDBC"
-            url="jdbc:sqlite::memory:"
+            url="jdbc:sqlite:C:/Projects/RussianMcDonaldsService/db.sqlite"
             closeMethod="close"
     />
 </Context>

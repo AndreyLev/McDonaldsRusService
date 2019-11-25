@@ -15,8 +15,9 @@ public class BurgerAdminService {
     private final OrderRepository orderRepository;
     private final OrderPositionRepository orderPositionRepository;
 
-    public void save(ProductModel model) {
+    public boolean save(ProductModel model) {
         productRepository.save(model);
+        return true;
     }
 
     public List<ProductModel> getAll() {

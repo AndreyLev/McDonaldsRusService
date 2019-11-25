@@ -11,7 +11,7 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Burger Shop</title>
+  <title>Rosfood service</title>
   <%@include file="bootstrap-css.jsp"%>
 </head>
 <body>
@@ -25,33 +25,38 @@
 <%-- null -> for non-existent attribute --%>
 <div class="container">
   <%-- ul>li + Tab --%>
-  <h1>Burger Shop</h1>
+  <h1>Rosfood service</h1>
 
     <% List<OrderPositionModel> positions = (List<OrderPositionModel>) request.getAttribute("ordered-items"); %>
-    <p><%= positions.size() %></p>
-    <% for (OrderPositionModel model: positions) { %>
-    <p><%= model %></p>
-    <% } %>
+    <% int totalAmount = (Integer) request.getAttribute("total-amount"); %>
+    <% int totalQuantity = (Integer) request.getAttribute("total-quantity"); %>
+    <p><b>Total in basket: <%= totalQuantity %> products</b><p><b> Total Amount: <%=totalAmount%> rub.</b></p></p>
+
+    <% if (positions.size() > 0) {%>
+    <a class="btn btn-primary" href="/basket" role="button">Go to product basket</a>
+    <% }%>
+
 
   <div class="row">
   <% for (ProductModel item : (List<ProductModel>) request.getAttribute(Constants.ITEMS)) { %>
-    <div class="col-3">
+    <div class="col-3" align="center">
       <div class="card mt-3">
-        <img src="..." class="card-img-top" alt="...">
+        <img src="<%= item.getImageUrl() %>" class="card-img-top" alt="<%= item.getName() %>">
         <div class="card-body">
-          <h5 class="card-title"><%= item.getName() %>
+          <input name="id" type="hidden" value="<%=item.getId()%>">
+          <h5 class="card-title"><a href = "<%= request.getContextPath() %>/product/item?id=<%=item.getId()%>"><%= item.getName() %></a>
           </h5>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price: <%= item.getPrice() %></li>
+            <li class="list-group-item">Price: <%= item.getPrice() %> rub.</li>
           </ul>
-          <form action="<%= request.getContextPath() %>" method="post">
+          <p><form action="<%= request.getContextPath() %>" method="post" align="Center">
             <input name="id" type="hidden" value="<%= item.getId() %>">
             <div class="form group">
-              <label for="quantity">Product Quantity</label>
+              <label for="quantity">Product quantity</label>
               <input type="number" min="0" id="quantity" name="quantity" value="1">
             </div>
-            <button class="btn btn-primary">Add to card</button>
-          </form>
+            <p><button class="btn btn-primary" style="margin: 5px">Add to basket</button></p>
+          </form></p>
         </div>
       </div>
     </div>
