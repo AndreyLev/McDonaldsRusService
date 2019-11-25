@@ -192,8 +192,6 @@ public class FrontServlet extends HttpServlet {
 
                     int id = Integer.parseInt(req.getParameter("order-position-id"));
                     int orderId = (Integer) session.getAttribute(ORDER_ID);
-                    System.out.println("ORDER POSITION ID : " + id);
-                    System.out.println("ORDER ID: " + orderId);
                     int productId = Integer.parseInt(req.getParameter("product-id"));
                     String productName = req.getParameter("product-name");
                     int productPrice = Integer.parseInt(req.getParameter("product-price"));

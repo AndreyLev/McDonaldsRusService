@@ -52,7 +52,7 @@
                         <h5 class="card-title"><a href = "<%= request.getContextPath() %>/product/item?id=<%=desiredModel.getId()%>"><%= desiredModel.getName() %></a>
                         </h5>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Price: <%= item.getProductPrice() %> rub. <%=item.getId()%></li>
+                            <li class="list-group-item">Price: <%= item.getProductPrice() %> rub.</li>
                         </ul>
                         <p><form action="<%= request.getContextPath() %>" method="post" align="Center">
                             <input name="order-position-id" type="hidden" value="<%= item.getId() %>">
