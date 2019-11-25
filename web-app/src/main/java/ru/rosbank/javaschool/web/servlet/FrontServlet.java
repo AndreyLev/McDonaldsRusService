@@ -54,7 +54,7 @@ public class FrontServlet extends HttpServlet {
         productRepository.save(new DrinkModel(0, "Fanta", 65, 2, "https://images.ctfassets.net/a9odgsv44wmq/67MMKsdKPSeO6AoeuOq20i/cddb326caefab89da565e734ff015dd2/17_FantaOrange.png", "Medium", "Soft carbonated drink."));
         productRepository.save(new PotatoModel(0, "French Fries", 59, 1, "https://sushi-live.ru/wp-content/uploads/2019/08/%D0%BA%D0%B0%D1%80%D1%82-%D1%84%D1%80%D0%B8-768x768.jpg", "Standart", "Tasty, deep-fried and lightly salted potato sticks."));
         productRepository.save(new PotatoModel(0, "Rustic Potatoes", 77, 2, "https://imageup.ru/img196/3512605/selopotato.jpg", "Standart", "Tasty, deep fried vegetable slices of potato with spices."));
-        productRepository.save(new StarterModel(0, "Chicken RosNuggents", 99, 1, "https://mcdonalds.ru/upload/iblock/edd/newnuggets.png", 9, "Deep-fried chicken, breadcrumbs"));
+        productRepository.save(new StarterModel(0, "Chicken RosNuggets", 99, 1, "https://mcdonalds.ru/upload/iblock/edd/newnuggets.png", 9, "Deep-fried chicken, breadcrumbs"));
         productRepository.save(new StarterModel(0, "Spicy Chicken RosNuggets", 77, 2, "https://imageup.ru/img196/3512610/chickenrosnuggets.jpg", 6, "Appetizing Spicy Chicken RosNuggets of chopped chicken, deep-fried and seasoned with burning spices."));
     }
 
