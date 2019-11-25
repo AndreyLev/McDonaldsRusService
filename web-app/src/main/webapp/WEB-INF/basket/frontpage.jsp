@@ -56,7 +56,6 @@
                         </ul>
                         <p><form action="<%= request.getContextPath() %>" method="post" align="Center">
                             <input name="id" type="hidden" value="<%= item.getId() %>">
-                            <input name="order-id" type="hidden" value="<%= item %>">
                             <input name="product-id" type="hidden" value="<%= item.getProductId() %>">
                             <input name="product-name" type="hidden" value="<%= item.getProductName() %>">
                             <input name="product-price" type="hidden" value="<%= item.getProductPrice() %>">
