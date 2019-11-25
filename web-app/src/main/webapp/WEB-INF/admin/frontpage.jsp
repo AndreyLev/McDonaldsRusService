@@ -2,7 +2,6 @@
 <%@ page import="ru.rosbank.javaschool.web.constant.Constants" %>
 <%@ page import="ru.rosbank.javaschool.web.model.ProductModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- ! + Tab - emmet --%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,29 +38,12 @@
     <% } %>
   </div>
 
-<%--  <% for (ProductModel item : (List<ProductModel>) request.getAttribute(Constants.ITEMS)) { %>--%>
-<%--  <div class="card" style="width: 18rem;">--%>
-<%--    <img src="..." class="card-img-top" alt="...">--%>
-<%--    <div class="card-body">--%>
-<%--      <h5 class="card-title"><%= item.getName() %>--%>
-<%--      </h5>--%>
-<%--      <ul class="list-group list-group-flush">--%>
-<%--        <li class="list-group-item">Price: <%= item.getPrice() %></li>--%>
-<%--        <li class="list-group-item">Quantity: <%= item.getQuantity() %></li>--%>
-<%--      </ul>--%>
-<%--      <a href="<%= request.getContextPath() %>/admin/edit?id=<%= item.getId()%>" class="btn btn-primary">Edit</a>--%>
-<%--    </div>--%>
-<%--  </div>--%>
-<%--  <% } %>--%>
-
 
   <% if (request.getAttribute(Constants.ITEM) == null) { %>
   <form action="<%= request.getContextPath() %>/admin" method="post">
     <input name="id" type="hidden" value="0">
     <div class="form group">
-      <%-- for="id", id должен быть у input --%>
       <label for="name">Product Name</label>
-      <%-- name="key" - потом по этому ключу можно будет доставать данные из запроса --%>
       <input type="text" id="name" name="name">
     </div>
     <div class="form group">
@@ -89,9 +71,7 @@
   <form action="<%= request.getContextPath() %>/admin" method="post">
     <input name="id" type="hidden" value="<%= item.getId() %>">
     <div class="form group">
-      <%-- for="id", id должен быть у input --%>
       <label for="name">Product Name</label>
-      <%-- name="key" - потом по этому ключу можно будет доставать данные из запроса --%>
       <input type="text" id="name" name="name" value="<%= item.getName() %>">
     </div>
     <div class="form group">

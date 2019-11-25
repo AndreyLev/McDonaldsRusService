@@ -3,7 +3,6 @@
 <%@ page import="ru.rosbank.javaschool.web.model.ProductModel" %>
 <%@ page import="ru.rosbank.javaschool.web.model.OrderPositionModel" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%-- ! + Tab - emmet --%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,16 +14,9 @@
   <%@include file="bootstrap-css.jsp"%>
 </head>
 <body>
-<%-- Jasper --%>
-<%-- tag + Tab --%>
-<%-- tag{Content} + Tab --%>
-<%-- tag{Content} + Tab --%>
-<%-- tag#id - уникальный идентификатор на странице --%>
-<%-- tag.class - строка, позволяющая логически группировать элементов --%>
-<%-- tag[attr=value] - все остальные атрибуты --%>
-<%-- null -> for non-existent attribute --%>
+
 <div class="container">
-  <%-- ul>li + Tab --%>
+
   <h1>Rosfood service</h1>
 
     <% List<OrderPositionModel> positions = (List<OrderPositionModel>) request.getAttribute("ordered-items"); %>
