@@ -161,6 +161,69 @@ public class FrontServlet extends HttpServlet {
         if (url.startsWith("/basket")) {
 
 
+            if (url.equals("/basket")) {
+                if (req.getMethod().equals("GET")) {
+                    HttpSession session = req.getSession();
+                    if (session.isNew()) {
+                        int orderId = burgerUserService.createOrder();
+                        session.setAttribute(ORDER_ID, orderId);
+                    }
+
+                    int orderId = (Integer) session.getAttribute(ORDER_ID);
+                    burgerUserService.productsForBasket(orderId);
+                    int totalQuantity = burgerUserService.getQuantityOfProductsInBasket(orderId);
+                    int totalAmount = burgerUserService.getTotalAmountOfBasket(orderId);
+                    req.setAttribute(TOTAL_QUANTITY, totalQuantity);
+                    req.setAttribute(TOTAL_AMOUNT, totalAmount);
+                    req.setAttribute(Constants.ORDERED_ITEMS, burgerUserService.getAllOrderPosition(orderId));
+                    req.setAttribute(Constants.ITEMS, burgerUserService.getPartOfAllForBasket(orderId));
+                    req.getRequestDispatcher("/WEB-INF/basket/frontpage.jsp").forward(req, resp);
+                    return;
+
+                }
+
+                if (req.getMethod().equals("POST")) {
+                    HttpSession session = req.getSession();
+                    if (session.isNew()) {
+                        int orderId = burgerUserService.createOrder();
+                        session.setAttribute(ORDER_ID, orderId);
+                    }
+
+
+                    int id = Integer.parseInt(req.getParameter("order-position-id"));
+                    int orderId = (Integer) session.getAttribute(ORDER_ID);
+                    System.out.println("ORDER POSITION ID : " + id);
+                    System.out.println("ORDER ID: " + orderId);
+                    int productId = Integer.parseInt(req.getParameter("product-id"));
+                    String productName = req.getParameter("product-name");
+                    int productPrice = Integer.parseInt(req.getParameter("product-price"));
+                    int productQuantity = Integer.parseInt(req.getParameter("quantity"));
+                    OrderPositionModel model = new OrderPositionModel(
+                            id,
+                            orderId,
+                            productId,
+                            productName,
+                            productPrice,
+                            productQuantity
+                    );
+
+                    System.out.println("model = " + model);
+                    if (productQuantity == 0) {
+                        burgerUserService.removeOrderPosition(model);
+                    }
+
+                    if (productQuantity > 0) {
+                        burgerUserService.changeOrderPosition(model);
+                    }
+
+                    burgerUserService.productsForBasket(orderId);
+                    resp.sendRedirect(url);
+                    return;
+                }
+
+
+            }
+
             if (url.startsWith("/basket/delete")) {
                 if (req.getMethod().equals("GET")) {
 
@@ -170,7 +233,6 @@ public class FrontServlet extends HttpServlet {
                         session.setAttribute(ORDER_ID, orderId);
                     }
 
-
                     int id = Integer.parseInt(req.getParameter("id"));
                     burgerUserService.removeOrderPositionById(id);
                     resp.sendRedirect("/basket");
@@ -178,64 +240,6 @@ public class FrontServlet extends HttpServlet {
                 }
 
             }
-
-            if (req.getMethod().equals("GET")) {
-                HttpSession session = req.getSession();
-                if (session.isNew()) {
-                    int orderId = burgerUserService.createOrder();
-                    session.setAttribute(ORDER_ID, orderId);
-                }
-
-                int orderId = (Integer) session.getAttribute(ORDER_ID);
-                burgerUserService.productsForBasket(orderId);
-                int totalQuantity = burgerUserService.getQuantityOfProductsInBasket(orderId);
-                int totalAmount = burgerUserService.getTotalAmountOfBasket(orderId);
-                req.setAttribute(TOTAL_QUANTITY, totalQuantity);
-                req.setAttribute(TOTAL_AMOUNT, totalAmount);
-                req.setAttribute(Constants.ORDERED_ITEMS, burgerUserService.getAllOrderPosition(orderId));
-                req.setAttribute(Constants.ITEMS, burgerUserService.getPartOfAllForBasket(orderId));
-                req.getRequestDispatcher("/WEB-INF/basket/frontpage.jsp").forward(req, resp);
-                return;
-
-            }
-
-            if (req.getMethod().equals("POST")) {
-                HttpSession session = req.getSession();
-                if (session.isNew()) {
-                    int orderId = burgerUserService.createOrder();
-                    session.setAttribute(ORDER_ID, orderId);
-                }
-
-
-                int id = Integer.parseInt(req.getParameter("id"));
-                int orderId = (Integer) session.getAttribute(ORDER_ID);
-                int productId = Integer.parseInt(req.getParameter("product-id"));
-                String productName = req.getParameter("product-name");
-                int productPrice = Integer.parseInt(req.getParameter("product-price"));
-                int productQuantity = Integer.parseInt(req.getParameter("quantity"));
-                OrderPositionModel model = new OrderPositionModel(
-                        id,
-                        orderId,
-                        productId,
-                        productName,
-                        productPrice,
-                        productQuantity
-                );
-
-                if (productQuantity == 0) {
-                    burgerUserService.removeOrderPosition(model);
-                }
-
-                if (productQuantity > 0) {
-                    burgerUserService.changeOrderPosition(model);
-                }
-
-                burgerUserService.productsForBasket(orderId);
-                resp.sendRedirect(url);
-                return;
-            }
-
-
         }
     }
 
